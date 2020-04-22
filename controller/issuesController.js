@@ -42,21 +42,21 @@ module.exports = {
 
     updateIssue: async function (params) {
 
-        const { id, ...updated_fields } = params;
+        const { _id, ...updated_fields } = params;
 
         // try to get document in database in id, if no document found return error
-        const issue = await Issues.getIssueById(id);
+        const issue = await Issues.getIssueById(_id);
         if (!issue) {
 
-            return { error: "could not update " + id }
+            return { error: "could not update " + _id }
         }
 
         // update document in database
-        const find = { _id : id };
+        const find = { _id : _id };
         const update = { updated_on: new Date(), ...updated_fields };
 
         const response = await Issues.updateIssue({ find, update });
-        
+
         // if updated_fields is an empty object
         if (Object.entries(updated_fields).length == 0) {
 
@@ -80,14 +80,14 @@ module.exports = {
 
     deleteIssue: async function (params) {
 
-        if (!params.id) {
+        if (!params._id) {
 
             return { error: "could not delete" };
         }
 
-        const response = await Issues.deleteIssue(params.id); 
+        const response = await Issues.deleteIssue(params._id); 
 
-        return { message: "deleted " + params.id };
+        return { message: "deleted " + params._id };
     }
 
 }

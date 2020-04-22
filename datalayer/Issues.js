@@ -10,10 +10,10 @@ module.exports = {
         return doc;
     },
 
-    getIssueById: async function (id) {
+    getIssueById: async function (_id) {
         const client = connection.getClient();
         const issueCollection = client.db("issues").collection("issues");
-        const doc = await issueCollection.findOne({ _id: id })
+        const doc = await issueCollection.findOne({ _id: _id })
         return doc;
     },
 
@@ -34,11 +34,11 @@ module.exports = {
         return docs;
     },
 
-    deleteIssue: async function (id) {
+    deleteIssue: async function (_id) {
 
         const client = connection.getClient();
         const issueCollection = client.db("issues").collection("issues");
-        const response = await issueCollection.findOneAndDelete({ _id: id });
+        const response = await issueCollection.findOneAndDelete({ _id: _id });
         return response;
     },
 

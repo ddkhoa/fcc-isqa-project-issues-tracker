@@ -96,7 +96,7 @@ suite('Functional Tests', function () {
 
     suite('PUT /api/issues/{project} => text', function () {
 
-        let id = "";
+        let _id = "";
         before(function (done) {
 
             // setup data in database, use POST request which has been tested above
@@ -109,7 +109,7 @@ suite('Functional Tests', function () {
                 })
                 .end(function (err, res) {
 
-                    id = res.body._id;
+                    _id = res.body._id;
                     done();
                 })
         });
@@ -118,7 +118,7 @@ suite('Functional Tests', function () {
             chai.request(server)
                 .put('/api/issues/test')
                 .send({
-                    id: id,
+                    _id: _id,
                 })
                 .end(function (err, res) {
                     assert.equal(res.status, 200);
@@ -133,7 +133,7 @@ suite('Functional Tests', function () {
             chai.request(server)
                 .put('/api/issues/test')
                 .send({
-                    id: id,
+                    _id: _id,
                     issue_title: 'Title updated'
                 })
                 .end(function (err, res) {
@@ -149,7 +149,7 @@ suite('Functional Tests', function () {
             chai.request(server)
                 .put('/api/issues/test')
                 .send({
-                    id: id,
+                    _id: _id,
                     issue_title: 'Title updated',
                     issue_text: 'Text updated',
                 })
@@ -237,7 +237,7 @@ suite('Functional Tests', function () {
 
     suite('DELETE /api/issues/{project} => text', function () {
 
-        let id = "";
+        let _id = "";
 
         before(function (done) {
 
@@ -251,12 +251,12 @@ suite('Functional Tests', function () {
                 })
                 .end(function (err, res) {
 
-                    id = res.body._id;
+                    _id = res.body._id;
                     done();
                 })
         });
 
-        test('No id', function (done) {
+        test('No _id', function (done) {
             chai.request(server)
                 .delete('/api/issues/test')
                 .send({})
@@ -269,16 +269,16 @@ suite('Functional Tests', function () {
                 });
         });
 
-        test('Valid id', function (done) {
+        test('Valid _id', function (done) {
 
             chai.request(server)
                 .delete('/api/issues/test')
-                .send({ id })
+                .send({ _id : _id })
                 .end(function (err, res) {
                     assert.equal(res.status, 200);
 
                     //fill me in too!
-                    assert.equal(res.body.message, 'deleted ' + id);
+                    assert.equal(res.body.message, 'deleted ' + _id);
                     done();
                 });
         });
