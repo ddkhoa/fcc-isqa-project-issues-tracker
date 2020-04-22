@@ -52,8 +52,11 @@ module.exports = {
         }
 
         // update document in database
-        const find = { _id : _id };
+        const find = { _id: _id };
         const update = { updated_on: new Date(), ...updated_fields };
+        if (typeof updated_fields.open != "undefined") {
+            update.open = (params.open == "true");
+        }
 
         const response = await Issues.updateIssue({ find, update });
 
@@ -70,7 +73,7 @@ module.exports = {
 
         // format params from query string
         const paramsToDB = params;
-        if (params.open) {
+        if (typeof params.open != "undefined") {
             paramsToDB.open = (params.open == "true");
         }
 
@@ -85,7 +88,7 @@ module.exports = {
             return { error: "could not delete" };
         }
 
-        const response = await Issues.deleteIssue(params._id); 
+        const response = await Issues.deleteIssue(params._id);
 
         return { message: "deleted " + params._id };
     }

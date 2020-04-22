@@ -1,5 +1,0 @@
-* Define all functional tests
-    ** add data to db before each test
-* Complete Datalayer
-* Complete Controller : generate create_at, update_at, _id (=> install uuidv4)
-* Call controller from route
